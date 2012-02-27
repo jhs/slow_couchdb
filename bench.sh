@@ -17,15 +17,16 @@ fi
 [ -z "$batch" ] && batch="10000"
 [ -z "$db"   ] && db="db1"
 
-soc="$PWD/seatoncouch/seatoncouch.rb"
-
+soc="seatoncouch.rb"
 couch="http://$host:$port"
 URL="$couch/$db"
 ddoc="$URL/_design/foo"
 
+cd seatoncouch
 ruby "$soc" --dbs 1 --host "$host" --port "$port" --users 0 \
             --db-start-id 0 --db-prefix "$db" --recreate-dbs \
-            --docs "$docs" --bulk-batch "$batch" --doc-tpl "$template"
+            --docs "$docs" --bulk-batch "$batch" --doc-tpl "../$template"
+cd ..
 
 [ $? = 0 ] || exit $?
 
