@@ -21,7 +21,7 @@ for erlang in $ERLANGS; do
     for couchdb in $COUCHDBS; do
         for doc in $DOCS; do
             echo "Running Erlang $erlang  with CouchDB $couchdb and doc $doc"
-            ./runner.sh $erlang $couchdb $doc
+            ./runner.sh $erlang $couchdb $doc 2>&1 > bench_${erlang}_${couchdb}_${doc}.log
         done
     done
 done
