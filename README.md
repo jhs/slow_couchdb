@@ -2,6 +2,10 @@
 
     $ git submodule update --init --recursive
 
+Also possibly add gems that seatoncouch needs. They are all in the `gems/` subdirectory.
+
+    $ gem install gems/*
+
 ## Usage
 
 1. Start CouchDB. The script assumes defaults from `make dev` (port 5984, etc).
