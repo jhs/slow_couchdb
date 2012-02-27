@@ -29,9 +29,10 @@ cd seatoncouch
 ruby "$soc" --dbs 1 --host "$host" --port "$port" --users 0 \
             --db-start-id 0 --db-prefix "$db" --recreate-dbs \
             --docs "$docs" --bulk-batch "$batch" --doc-tpl "../$template"
-cd ..
+result="$?"
 
-[ $? = 0 ] || exit $?
+cd ..
+[ "$result" = 0 ] || exit $?
 
 curl --fail -s "$ddoc" -X PUT -d '{"views":{"bar":{"map":"function(doc) {emit(doc.number, doc.number);}"}}}' > /dev/null
 if [ $? != 0 ]; then
