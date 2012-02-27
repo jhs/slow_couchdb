@@ -22,6 +22,9 @@ couch="http://$host:$port"
 URL="$couch/$db"
 ddoc="$URL/_design/foo"
 
+curl --silent --include "$couch" | egrep '^Server:|"Welcome"'
+echo
+
 cd seatoncouch
 ruby "$soc" --dbs 1 --host "$host" --port "$port" --users 0 \
             --db-start-id 0 --db-prefix "$db" --recreate-dbs \
@@ -35,8 +38,6 @@ if [ $? != 0 ]; then
   echo "Failed to create design document"
   exit $?
 fi
-
-curl -I "$ddoc"
 
 echo "Building view."
 time curl "$ddoc/_view/bar?limit=1"
