@@ -23,18 +23,6 @@ couch="http://$host:$port"
 URL="$couch/$db"
 ddoc="$URL/_design/foo"
 
-curl --silent --include "$couch" > hello.txt
-if grep '^Server:.*Erlang OTP/R15B' hello.txt; then
-  grep 'Welcome' hello.txt
-  echo
-  rm -f hello.txt
-else
-  echo "Woa there! This is not Erlang R15B." >&2
-  cat hello.txt >&2
-  rm -f hello.txt
-  exit 1
-fi
-
 ruby "$soc" --dbs 1 --host "$host" --port "$port" --users 0 \
             --db-start-id 0 --db-prefix "$db" --recreate-dbs \
             --docs "$docs" --bulk-batch "$batch" --doc-tpl "$template"
