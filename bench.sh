@@ -25,6 +25,8 @@ ddoc="$URL/_design/foo"
 curl --silent --include "$couch" | egrep '^Server:|"Welcome"'
 echo
 
+curl --silent -X PUT "$couch/_config/couchdb/file_compression" -d '"none"'
+
 cd seatoncouch
 ruby "$soc" --dbs 1 --host "$host" --port "$port" --users 0 \
             --db-start-id 0 --db-prefix "$db" --recreate-dbs \
