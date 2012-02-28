@@ -72,4 +72,5 @@ if [ $? != 0 ]; then
 fi
 
 echo "Building view."
-time curl "$ddoc/_view/bar?limit=1"
+time curl --silent --fail "$ddoc/_view/bar?limit=1"
+exit $?
