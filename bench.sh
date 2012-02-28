@@ -24,6 +24,15 @@ ddoc="$URL/_design/foo"
 
 echo "Me: $(whoami) on $(hostname)"
 
+disks=$( diskutil list 2> /dev/null | grep ^/dev/ )
+if [ $? = 0 -a "$disks" ]; then
+  for disk in $disks; do
+    echo "Disk: $disk"
+    diskutil info "$disk" | egrep 'Media Name|Solid State'
+    echo
+  done
+fi
+
 curl --silent --include "$couch" | egrep '^Server:|"Welcome"'
 echo
 
