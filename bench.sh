@@ -11,6 +11,8 @@ elif [ ! -f "$template" ]; then
   exit 1
 fi
 
+echo "slow_couchdb commit $(git rev-parse --verify HEAD)"
+
 [ -z "$repo" ] && repo="http://jhs.iriscouch.com/slow_couchdb"
 [ -z "$host" ] && host="localhost"
 [ -z "$port" ] && port="5984"
@@ -39,6 +41,9 @@ URL="$couch/$db"
 ddoc="$URL/_design/foo"
 
 echo "Me: $(whoami) on $(hostname)"
+
+df -k
+echo
 
 disks=$( diskutil list 2> /dev/null | grep ^/dev/ )
 if [ $? = 0 -a "$disks" ]; then
