@@ -41,6 +41,7 @@ URL="$couch/$db"
 ddoc="$URL/_design/foo"
 
 echo "Me: $(whoami) on $(hostname)"
+echo "Uname: $(uname -a)"
 
 df -k
 echo
