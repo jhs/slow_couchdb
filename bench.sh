@@ -49,7 +49,7 @@ if [ $? = 0 -a "$disks" ]; then
   done
 fi
 
-curl --silent --include "$couch" | egrep '^Server:|"Welcome"'
+curl --silent --include "$couch" | egrep '^Server:|Date:|"Welcome"'
 echo
 
 curl --silent -X PUT "$couch/_config/couchdb/file_compression" -d '"none"'
