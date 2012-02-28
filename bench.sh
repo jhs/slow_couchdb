@@ -36,7 +36,8 @@ result="$?"
 cd ..
 [ "$result" = 0 ] || exit $?
 
-curl --fail -s "$ddoc" -X PUT -d '{"views":{"bar":{"map":"function(doc) {emit(doc.number, doc.number);}"}}}' > /dev/null
+curl --silent --fail -s "$ddoc" -X PUT \
+     -d '{"views":{"bar":{"map":"function(doc) {emit(doc.number, doc.number);}"}}}' > /dev/null
 if [ $? != 0 ]; then
   echo "Failed to create design document"
   exit $?
