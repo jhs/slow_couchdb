@@ -7,7 +7,7 @@ if [ -z "$template" ]; then
   exit 1
 elif [ ! -f "$template" ]; then
   echo "Usage: $0 <template file> (which actually exists)" >&2
-  echo '  Optionally export $host, $port, $docs, and $batch' >&2
+  echo '  Optionally export $host, $port, $docs, $batch, and $private' >&2
   exit 1
 fi
 
@@ -18,7 +18,7 @@ fi
 [ -z "$batch" ] && batch="10000"
 [ -z "$db"   ] && db="db1"
 
-if [ -t 1 ]; then
+if [ -t 1 -a -z "$private" ]; then
   log="trial.$$"
   "$0" "$@" 2>&1 | tee "$log"
   if [ $? = 0 ]; then
