@@ -54,6 +54,7 @@ echo
 
 curl --silent -X PUT "$couch/_config/couchdb/file_compression" -d '"none"'
 
+echo "Testing $docs of $template in batches of $batch"
 cd seatoncouch
 ruby "$soc" --dbs 1 --host "$host" --port "$port" --users 0 \
             --db-start-id 0 --db-prefix "$db" --recreate-dbs \
