@@ -22,6 +22,8 @@ couch="http://$host:$port"
 URL="$couch/$db"
 ddoc="$URL/_design/foo"
 
+echo "Me: $(whoami) on $(hostname)"
+
 curl --silent --include "$couch" | egrep '^Server:|"Welcome"'
 echo
 
