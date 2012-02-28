@@ -11,11 +11,27 @@ elif [ ! -f "$template" ]; then
   exit 1
 fi
 
+[ -z "$repo" ] && repo="http://jhs.iriscouch.com/slow_couchdb"
 [ -z "$host" ] && host="localhost"
 [ -z "$port" ] && port="5984"
 [ -z "$docs" ] && docs="50000"
 [ -z "$batch" ] && batch="10000"
 [ -z "$db"   ] && db="db1"
+
+if [ -t 1 ]; then
+  log="trial.$$"
+  "$0" "$@" 2>&1 | tee "$log"
+  if [ $? = 0 ]; then
+    echo "Reporting your trial. ^C to cancel (you have 1 second)."
+    sleep 1
+    ( /bin/echo -n '{ "trial": "'
+      cat "$log" | perl -pe 's|\n|\\n|g; s|"|\\"|g'
+      /bin/echo    '"}'
+    ) | curl --silent --include -Hcontent-type:application/json -X POST --data-binary @- "$repo"
+  fi
+  rm -f "$log"
+  exit 0
+fi
 
 soc="seatoncouch.rb"
 couch="http://$host:$port"
